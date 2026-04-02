@@ -1,0 +1,12 @@
+import serial
+import requests
+
+ser = serial.Serial('COM3', 9600)
+
+while True:
+    if ser.in_waiting:
+        id = ser.readline().decode().strip()
+        print("Scanned ID:", id)
+
+        url = f"http://localhost/fingerprint_attendance/save_attendance.php?id={id}"
+        requests.get(url)
